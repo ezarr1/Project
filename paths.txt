@@ -1,0 +1,4 @@
+LoansMetadata=C:/Users/eleonora.zarrilli/Documents/CORSI/Dati R/esercizi/Normalizzazione_git_R/DATA/DATATAPE INVESTITORE  BCC ANNIA CUTOFF 25102022.xlsx
+GeoMetadata=C:/Users/eleonora.zarrilli/Documents/CORSI/Dati R/esercizi/Normalizzazione_git_R/DATA/Metadata_2022_12_21.xlsx
+
+
