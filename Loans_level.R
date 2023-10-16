@@ -281,7 +281,7 @@ ggsave("File/grafico.png",plot = grafico)
 
 
 
-file.remove("File/grafico.png")
+#file.remove("File/grafico.png")
 
 
 

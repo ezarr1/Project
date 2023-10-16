@@ -13,7 +13,7 @@ addWorksheet(wb, sheetName = "Report_Borrowers", gridLines = FALSE)
 
 
 TitleStyle <- createStyle(fontSize = 20,textDecoration = c('bold','underline'))
-titleStyle <- createStyle(fontSize = 16,textDecoration ='bold', border = 'Bottom', borderColour = 'black')
+titleStyle <- createStyle(fontSize = 14,textDecoration ='bold', border = 'Bottom', borderColour = 'black')
 NamesStyle <- createStyle(fontColour = "white", fgFill = "#6495ED", border = 'TopBottom',
                           textDecoration = 'bold', fontSize = 12)
 cellStyle <- createStyle(fontColour = "black", fgFill = "#E0FFFF", wrapText = TRUE, fontSize = 12,halign = "right")
@@ -23,6 +23,7 @@ bordosinistro <- createStyle(border = 'Left')
 bordodestro <- createStyle(border = 'Right')
 bordosotto <- createStyle(border = 'Bottom')
 bordosopra <- createStyle(border = 'Top')
+colStyle <- createStyle(halign = "left")
 
 ###------------------------------------------###
 #---               functions         -----
@@ -138,6 +139,12 @@ crea_bordi <- function(workbook, sheetname, tabella,col_iniziale,row_iniziale){
   }
 }
 
+sistema_colonna <- function(workbook, sheetname, colonna, riga_iniziale, riga_finale){
+  for(riga in riga_iniziale:riga_finale){
+    addStyle(workbook,sheetname,style = colStyle, cols = colonna,rows = riga, stack = TRUE)
+  }
+}
+
 ###------------------------------------------###
 #---              create tables      -----
 ###------------------------------------------###
@@ -175,8 +182,8 @@ crea_bordi(wb,"Report_Loans",Loan_by_gbv,5,33)
 crea_report_tabella(wb,"Report_Loans",Loan_by_status_gbv,'by status and gbv clusters',5,40,2)
 crea_bordi(wb,"Report_Loans",Loan_by_status_gbv,5,40)
 
-
-
+sistema_colonna(wb, "Report_Loans", 5, 12,48)
+sistema_colonna(wb, "Report_Loans", 6, 42,48)
 
 ###------------------------------------------###
 #---                 Borrowers        -----
@@ -203,12 +210,15 @@ crea_bordi(wb,"Report_Borrowers",Borrower_by_area,5,27)
 crea_report_pivot(wb,"Report_Borrowers",gbv_by_cluster_g,'Sum of GBV by gbv CLuster/Guarantors',5,33)
 crea_bordi(wb,"Report_Borrowers",gbv_by_cluster_g,5,33)
 
+sistema_colonna(wb, "Report_Borrowers", 5, 7,37)
+
 
 ###------------------------------------------###
 #---             add the graph      -----
 ###------------------------------------------###
 insertImage(wb,sheet = "Report_Loans","File/grafico.png",startCol = 12, startRow = 13, width = 4.5, height = 4.5, dpi = 300)
 
+insertImage(wb,sheet = "Report_Borrowers","File/grafico_borr.png",startCol = 12, startRow = 13, width = 4.5, height = 4.5, dpi = 300)
 
 ###------------------------------------------###
 #---              save the file      -----

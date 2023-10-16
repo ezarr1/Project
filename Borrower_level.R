@@ -161,3 +161,28 @@ gbv_by_cluster_g[is.na(gbv_by_cluster_g)] <- 0
 gbv_by_cluster_g <- as.data.frame(gbv_by_cluster_g)
 gbv_by_cluster_g$Total <- rowSums(gbv_by_cluster_g[2:4])
 gbv_by_cluster_g <- gbv_by_cluster_g %>% rename('Guarantors /GBV Clusters' = flag_g)
+
+
+
+
+###------------------------------------------------###
+#---    Borrowers status and type  GRAPH    -----
+###------------------------------------------------###
+
+total_borr_stat_type <- borrower_mat %>%
+  group_by(type,status) %>%                                         
+  summarise(TotalBorrowers = n_distinct(id.counterparty), GBV = sum(gbv.original))
+total_borr_stat_type$GBV <- paste(round((total_borr_stat_type$GBV/1000),1),'k')
+
+grafico_borr <- ggplot(total_borr_stat_type, aes(x = type, y = TotalBorrowers, fill = status)) +
+  geom_bar(stat = 'identity', color = 'black' ) +
+  geom_text(aes(label = TotalBorrowers), vjust = 2.5, size = 5) +
+  geom_text(aes(label = GBV ), vjust = 1.2, size = 5) +
+  labs(x = "Type", y = "N Borrowers", color = "Status") +
+  scale_fill_manual(values = c("utp" = "#56B0FF", "bad" = "#CD6E94"))+ 
+  theme_minimal()+ theme(axis.text.x = element_text(angle=30,size = 12),axis.text.y = element_text(size = 12))+
+  theme(axis.title.x = element_text(size = 12),axis.title.y = element_text(size = 12))+
+  ggtitle('N Borrowers/GBV by type and status') +
+  theme(plot.title = element_text(lineheight=3, face="bold", color="black", size=15))
+
+ggsave("File/grafico_borr.png",plot = grafico_borr)
