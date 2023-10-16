@@ -14,7 +14,11 @@ source("Functions/initial_functions.R")
 ###------------------------------------------###
 #---               load the data        -----
 ###------------------------------------------###
-Loans_Raw <- read_excel("C:/Users/eleonora.zarrilli/Documents/CORSI/Dati R/esercizi/Normalizzazione_git_R/DATA/DATATAPE INVESTITORE  BCC ANNIA CUTOFF 25102022.xlsx", sheet = "LOANS")
+paths_content <- readLines("paths.txt")
+LoansMetadata_line <- grep("^LoansMetadata", paths_content)
+LoansMetadata_value <- sub("^LoansMetadata=\\s*", "", paths_content[LoansMetadata_line])
+
+Loans_Raw <- read_excel(LoansMetadata_value, sheet = "LOANS")
 Loans_table <- Loans_Raw[-1, ] %>% row_to_names(1)
 
 ###------------------------------------------###
@@ -69,7 +73,7 @@ Loans <- map_types_Loans(Loans,types_table)
 
 
 #Load NDG table:
-NDG_table <- read_excel("C:/Users/eleonora.zarrilli/Documents/CORSI/Dati R/esercizi/Normalizzazione_git_R/DATA/DATATAPE INVESTITORE  BCC ANNIA CUTOFF 25102022.xlsx", sheet = "NDG")
+NDG_table <- read_excel(LoansMetadata_value, sheet = "NDG")
 
 #Basic modifications for column names and NAs removal:
 NDG_table <- NDG_table %>% rename(Region=`Borrower's Region`, Tax_ID = 'Tax ID', Name = 'BorrowerName')

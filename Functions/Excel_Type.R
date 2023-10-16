@@ -2,7 +2,6 @@
 #---               excel        -----
 ###------------------------------------------###
 
-#source("C:/Users/eleonora.zarrilli/Documents/CORSI/Dati R/esercizi/Normalizzazione_git_R/normalization/Main_Normalization.R")
 
 ###------------------------------------------###
 #---            first sheet       -----

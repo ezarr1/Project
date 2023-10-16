@@ -1,6 +1,11 @@
 # Area from Geo sheet:
+paths_content <- readLines("paths.txt")
+GeoMetadata_line <- grep("^GeoMetadata", paths_content)
+GeoMetadata_value <- sub("^GeoMetadata=\\s*", "", paths_content[GeoMetadata_line])
 
-GeoData <- read_excel("C:/Users/eleonora.zarrilli/Documents/CORSI/Dati R/esercizi/Normalizzazione_git_R/DATA/Metadata_2022_12_21.xlsx", sheet = "Geo")
+
+
+GeoData <- read_excel(GeoMetadata_value, sheet = "Geo")
 
 
 # find the area from the city:
