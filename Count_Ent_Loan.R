@@ -36,8 +36,11 @@ Link_loans_counterparties <- Counterparties %>% select(id.loan, name)
 Counterparties <- Counterparties %>% select(-id.loan) %>% distinct()
 Counterparties <- Counterparties %>% mutate(id.counterparty = paste0("c_", 400 + row_number())) %>%
   relocate(id.counterparty, .before = name)
-column_to_create <- c("id.bor","id.group","flag.imputed")
-Counterparties <- create_empty_columns(Counterparties,column_to_create )
+#column_to_create <- c("id.bor","id.group","flag.imputed")
+#Counterparties <- create_empty_columns(Counterparties,column_to_create )
+Counterparties <- Counterparties %>% mutate(id.bor=NA,
+                                            id.group=NA,
+                                            flag.imputed=NA)
 Counterparties <- Counterparties[ ,c(1,4,5,3,2,6)]    
 
 Link_loans_counterparties <- Link_loans_counterparties %>%
@@ -57,8 +60,14 @@ Entities$cf.piva <-  str_trim(Entities$cf.piva)
 
 # colonne da aggiungere nulle: dummy.info, solvency.pf, income.pf, status.pg, date.cessation, flag.imputed
 
-column_to_create_empty <- c("dummy.info","solvency.pf", "income.pf", "status.pg", "date.cessation", "flag.imputed")
-Entities <- create_empty_columns(Entities,column_to_create_empty )
+#column_to_create_empty <- c("dummy.info","solvency.pf", "income.pf", "status.pg", "date.cessation", "flag.imputed")
+#Entities <- create_empty_columns(Entities,column_to_create_empty )
+Entities <- Entities %>% mutate(dummy.info=NA,
+                                solvency.pf=NA,
+                                income.pf=NA,
+                                status.pg=NA,
+                                date.cessation=NA,
+                                flag.imputed=NA)
 
 #col <- c('type.subject','sex','date.of.birth','age','range.age','type.pg','area')
 #Entities <- create_empty_columns(Entities,col)

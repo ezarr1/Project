@@ -46,8 +46,17 @@ vector_column <- Loans %>% select(principal, interest, gbv.original, expenses) %
 Loans <- Loans %>% mutate_at(vars(all_of(vector_column)), funs(round(as.numeric(.), 2)))
 
 #create the empty columns
-vector_empty <- c("id.group","originator","ptf","cluster.ptf", "penalties",  "date.origination","date.last.act","flag.imputed")
-Loans <- create_empty_columns(Loans, vector_empty)
+#vector_empty <- c("id.group","originator","ptf","cluster.ptf", "penalties",  "date.origination","date.last.act","flag.imputed")
+#Loans <- create_empty_columns(Loans, vector_empty)
+
+Loans <- Loans %>% mutate(id.group=NA,
+                           originator=NA,
+                           ptf=NA,
+                           cluster.ptf=NA,
+                           penalties=NA,
+                           date.origination=NA,
+                           date.last.act=NA,
+                           flag.imputed=NA)
 
 #change column format
 Loans$date.origination <- Loans$date.origination %>% as.Date()
